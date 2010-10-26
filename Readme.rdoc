@@ -1,0 +1,37 @@
+= has_many_through_with_join_model
+
+Access the associated join model from any element in your has_many :through association collection
+
+== Getting started
+
+./script/plugin install git://github.com/TylerRick/has_many_through_with_join_model.git
+
+  class Group
+    has_many :users, :through => :memberships, :extend => WithJoinModel
+  end
+  
+  group.users.with_join.map(&:membership) # => [<Membership>, <Membership>, ...]
+  group.users.with_join.map(&:join)       # => [<Membership>, <Membership>, ...]
+
+== Name ideas?
+
+Please let me know if you have suggestions for improving naming -- the plugin, the module name/namespace (WithJoinModel?), the methods (with_join? join? through?), etc.
+
+For that matter, suggestions of any sort are welcome:
+http://github.com/TylerRick/has_many_through_with_join_model/issues
+
+== Note on Patches/Pull Requests
+ 
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request.
+
+== Copyright
+
+Copyright (c) 2010 Tyler Rick. See LICENSE for details.
+
+The initial starting point for setting up the specs was attribute_normalizer -- thanks for showing me how to write specs for an ActiveRecord plugin.

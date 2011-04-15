@@ -15,19 +15,21 @@ module WithJoinModel
     # Add methods to each element in this collection
     proxy_target.map do |element|
 
+      singleton_class = element.respond_to?(:singleton_class) ? element.singleton_class : element.metaclass
+
       # user. metaclass.send(:define_method, :join) do
-      element.metaclass.send(:define_method, :join) do
+      element.singleton_class.send(:define_method, :join) do
         # memberships = send(:memberships)
         join_objects  = send(proxy_reflection.through_reflection.name)
         # memberships.detect {|membership| user.send('group_id')                        == group.      id}
         join_objects. detect {|element| element.send(proxy_reflection.primary_key_name) == proxy_owner.id}
       end
 
-      element.metaclass.send(:alias_method, :through, :join)
+      element.singleton_class.send(:alias_method, :through, :join)
 
       # Also alias a method named after the join/through table itself
       # element.metaclass.send(:alias_method, :membership, :join)
-      element.  metaclass.send(:alias_method, method_name, :join)
+      element.singleton_class.send(:alias_method, method_name, :join)
       # (This also works:)
       #element.metaclass.send(:define_method, method_name, element.method(:join))
 

@@ -1,6 +1,6 @@
 require 'rubygems'
-require 'spec'
-require 'spec/autorun'
+require 'rspec'
+require 'rspec/autorun'
 require 'active_support'
 require 'active_record'
 
@@ -13,5 +13,5 @@ require 'models/group'
 require 'models/membership'
 
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
 end
